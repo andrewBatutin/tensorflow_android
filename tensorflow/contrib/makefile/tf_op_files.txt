@@ -287,6 +287,8 @@ tensorflow/core/kernels/variable_ops.cc
 tensorflow/core/kernels/where_op.cc
 tensorflow/core/kernels/xent_op.cc
 tensorflow/core/kernels/xsmm_conv2d.cc
+tensorflow/core/kernels/set_kernels.cc
+tensorflow/core/ops/set_ops.cc
 tensorflow/core/ops/array_grad.cc
 tensorflow/core/ops/array_ops.cc
 tensorflow/core/ops/audio_ops.cc
@@ -318,3 +320,4 @@ tensorflow/core/ops/sparse_ops.cc
 tensorflow/core/ops/state_ops.cc
 tensorflow/core/ops/string_ops.cc
 tensorflow/core/ops/training_ops.cc
+

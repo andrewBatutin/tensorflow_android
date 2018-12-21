@@ -1,0 +1,30 @@
+Android app can be build with
+
+1) Android Studio and prebuild tensofrlow lib
+2) Using bazel and compiling tensorflow from source
+
+1) Android Studio
+
+1.1 Download here https://developer.android.com/studio/
+1.2 Open the project at tensorflow/examples/android folder
+1.3 At build.gradle file set version of tensorflow desiried - now it's 1.8
+1.4 Cope to tensorflow/examples/android/assets folder frozen model
+1.5 At ClassifierActivity.java set frozen model name and params (line 75)
+1.6 Make sure that gradle.properties has org.gradle.jvmargs=-Xmx4608m set up to allow launch of the app
+1.7 Launch the app from Android Studio
+
+2) Bazel 
+
+2.1 Compile with 
+
+bazel build --cxxopt='--std=c++11' -c opt --copt="-D__ANDROID_TYPES_FULL__" //tensorflow/examples/android:tensorflow_demo
+
+2.2 Launch with 
+
+adb install -r bazel-bin/tensorflow/examples/android/tensorflow_demo.apk
+
+adb - android debug bridge can be found at Android/sdk/platform-tools/ folder
+
+get the logs to file with
+
+adb logcat > log.txt
