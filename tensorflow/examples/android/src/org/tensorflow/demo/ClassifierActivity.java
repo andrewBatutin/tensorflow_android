@@ -16,25 +16,19 @@
 
 package org.tensorflow.demo;
 
-import android.graphics.Bitmap;
+import android.graphics.*;
 import android.graphics.Bitmap.Config;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
-import android.view.Display;
-import android.view.Surface;
-import java.util.List;
-import java.util.Vector;
 import org.tensorflow.demo.OverlayView.DrawCallback;
 import org.tensorflow.demo.env.BorderedText;
 import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;
-import org.tensorflow.demo.R; // Explicit import needed for internal Google builds.
+
+import java.util.List;
+import java.util.Vector;
 
 public class ClassifierActivity extends CameraActivity implements OnImageAvailableListener {
   private static final Logger LOGGER = new Logger();
@@ -110,16 +104,17 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     borderedText = new BorderedText(textSizePx);
     borderedText.setTypeface(Typeface.MONOSPACE);
 
-    classifier =
-        TensorFlowImageClassifier.create(
-            getAssets(),
-            MODEL_FILE,
-            LABEL_FILE,
-            INPUT_SIZE,
-            IMAGE_MEAN,
-            IMAGE_STD,
-            INPUT_NAME,
-            OUTPUT_NAME);
+    classifier = ISICClassifierTask1.create(getAssets(), MODEL_FILE);
+//    classifier =
+//        TensorFlowImageClassifier.create(
+//            getAssets(),
+//            MODEL_FILE,
+//            LABEL_FILE,
+//            INPUT_SIZE,
+//            IMAGE_MEAN,
+//            IMAGE_STD,
+//            INPUT_NAME,
+//            OUTPUT_NAME);
 
     previewWidth = size.getWidth();
     previewHeight = size.getHeight();
