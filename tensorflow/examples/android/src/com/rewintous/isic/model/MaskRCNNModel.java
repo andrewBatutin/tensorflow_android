@@ -96,7 +96,7 @@ public class MaskRCNNModel {
             }
         }
 
-        Tensor<Float> inputImageTensor = Tensors.create(inputImage);
+        Tensor<Float> inputImageTensor = Tensors.create(new float[1][inferencedWidth][inferencedHeight][3]);
 
         float[][] inputImageMeta = new float[1][14];
 
@@ -124,9 +124,9 @@ public class MaskRCNNModel {
 
         FloatBuffer mrcnnDetection = FloatBuffer.allocate(4800);
         FloatBuffer mrcnnMask = FloatBuffer.allocate(1254400);
+        inference.run(new String[]{"mrcnn_detection/Reshape_1:0", "mrcnn_mask/Reshape_1:0"});
         inference.fetch("mrcnn_detection/Reshape_1:0", mrcnnDetection);
         inference.fetch("mrcnn_mask/Reshape_1:0", mrcnnMask);
-        inference.run(new String[]{"mrcnn_detection/Reshape_1:0", "mrcnn_mask/Reshape_1:0"});
         Tensor<Float> detectionTensor = Tensor.create(new long[]{1, 400, 6}, mrcnnDetection);
         Tensor<Float> maskTensor = Tensor.create(new long[]{1, 400, 28, 28, 2}, mrcnnMask);
 
@@ -146,6 +146,7 @@ public class MaskRCNNModel {
     private FloatBuffer addFeed(TensorFlowInferenceInterface inference, String input_image, Tensor<Float> inputImageTensor) {
         FloatBuffer inputImageBuffer = FloatBuffer.allocate(inputImageTensor.numElements());
         inputImageTensor.writeTo(inputImageBuffer);
+        inputImageBuffer.rewind();
         inference.feed(input_image, inputImageBuffer, inputImageTensor.shape());
         return inputImageBuffer;
     }
