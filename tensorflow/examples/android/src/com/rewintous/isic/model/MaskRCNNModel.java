@@ -66,7 +66,7 @@ public class MaskRCNNModel {
                 activeClassIds
         );
 
-        //Component 2 - normalized anchors
+        //Component 2 - normalized anchors TODO - CACHE!
         List<FloatBox> floatBoxes = generateAnchors(inferencedHeight, inferencedWidth);
 
         /* Tensors and shapes
@@ -86,7 +86,7 @@ public class MaskRCNNModel {
             'rpn_bbox']         <class 'tuple'>: (1, 147312, 4)
          */
 
-        float[][][][] inputImage = new float[1][inferencedWidth][inferencedHeight][3];
+        float[][][][] inputImage = new float[1][inferencedWidth][inferencedHeight][3]; //1, 768, 768, 3
 
         for (int h = 0; h < shape[0]; h++) {
             for (int w = 0; w < shape[1]; w++) {
